@@ -1,72 +1,246 @@
-<p align="center">
-  <img src="https://avatars0.githubusercontent.com/u/44036562?s=100&v=4"/> 
-</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Marketing Hub</title>
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-## Starter Workflows
+        body {
+            background: #f0f2f5;
+            line-height: 1.6;
+        }
 
-These are the workflow files for helping people get started with GitHub Actions.  They're presented whenever you start to create a new GitHub Actions workflow.
+        /* Navigation */
+        .navbar {
+            background: #1a73e8;
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
 
-**If you want to get started with GitHub Actions, you can use these starter workflows by clicking the "Actions" tab in the repository where you want to create a workflow.**
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
 
-<img src="https://d3vv6lp55qjaqc.cloudfront.net/items/353A3p3Y2x3c2t2N0c01/Image%202019-08-27%20at%203.25.07%20PM.png" max-width="75%"/>
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
 
-### Directory structure
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
 
-* [ci](ci): solutions for Continuous Integration workflows
-* [deployments](deployments): solutions for Deployment workflows
-* [automation](automation): solutions for automating workflows
-* [code-scanning](code-scanning): solutions for [Code Scanning](https://github.com/features/security)
-* [pages](pages): solutions for Pages workflows
-* [icons](icons): svg icons for the relevant template
+        /* Main Content Sections */
+        .section {
+            padding: 6rem 2rem 2rem;
+            min-height: 100vh;
+        }
 
-Each workflow must be written in YAML and have a `.yml` extension. They also need a corresponding `.properties.json` file that contains extra metadata about the workflow (this is displayed in the GitHub.com UI).
+        /* Hero Section */
+        #hero {
+            background: linear-gradient(135deg, #1a73e8, #0d47a1);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
 
-For example: `ci/django.yml` and `ci/properties/django.properties.json`.
+        .hero-title {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
 
-### Valid properties
+        /* Strategies Grid */
+        .strategies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
 
-* `name`: the name shown in onboarding. This property is unique within the repository.
-* `description`: the description shown in onboarding
-* `iconName`: the icon name in the relevant folder, for example, `django` should have an icon `icons/django.svg`. Only SVG is supported at this time. Another option is to use [octicon](https://primer.style/octicons/). The format to use an octicon is `octicon <<icon name>>`. Example: `octicon person`
-* `creator`: creator of the template shown in onboarding. All the workflow templates from an author will have the same `creator` field.
-* `categories`: the categories that it will be shown under. Choose at least one category from the list [here](#categories). Further, choose the categories from the list of languages available [here](https://github.com/github/linguist/blob/master/lib/linguist/languages.yml) and the list of tech stacks available [here](https://github.com/github-starter-workflows/repo-analysis-partner/blob/main/tech_stacks.yml). When a user views the available templates, those templates that match the language and tech stacks will feature more prominently.
+        .strategy-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
 
-### Categories
-* continuous-integration
-* deployment
-* testing
-* code-quality
-* code-review
-* dependency-management
-* monitoring
-* Automation
-* utilities
-* Pages
-* Hugo
+        .strategy-card h3 {
+            color: #1a73e8;
+            margin-bottom: 1rem;
+        }
 
-### Variables
-These variables can be placed in the starter workflow and will be substituted as detailed below:
+        .strategy-list {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
 
-* `$default-branch`: will substitute the branch from the repository, for example `main` and `master`
-* `$protected-branches`: will substitute any protected branches from the repository
-* `$cron-daily`: will substitute a valid but random time within the day
+        .strategy-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
 
-## How to test templates before publishing
+        /* Timeline Section */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 4rem auto;
+        }
 
-### Disable template for public
-The template author adds a `labels` array in the template's `properties.json` file with a label `preview`. This will hide the template from users, unless user uses query parameter `preview=true` in the URL.
-Example `properties.json` file:
-```json
-{
-    "name": "Node.js",
-    "description": "Build and test a Node.js project with npm.",
-    "iconName": "nodejs",
-    "categories": ["Continuous integration", "JavaScript", "npm", "React", "Angular", "Vue"],
-    "labels": ["preview"]
-}
-```
+        .timeline-item {
+            position: relative;
+            padding-left: 120px;
+            margin-bottom: 3rem;
+        }
 
-For viewing the templates with `preview` label, provide query parameter `preview=true` to the  `new workflow` page URL. Eg. `https://github.com/<owner>/<repo_name>/actions/new?preview=true`.
+        .timeline-year {
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-weight: bold;
+            color: #1a73e8;
+        }
 
-### Enable template for public
-Remove the `labels` array from `properties.json` file to publish the template to public
+        .timeline-content {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Interactive Elements */
+        .view-more {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: #1a73e8;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: transform 0.2s;
+        }
+
+        .view-more:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background: #1a73e8;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#strategies">Strategies</a></li>
+            <li><a href="#history">History</a></li>
+        </ul>
+    </nav>
+
+    <section id="hero" class="section">
+        <h1 class="hero-title">Digital Marketing !!</h1>
+        <p>Using online channels to promote products, engage consumers, and optimize campaigns for better performance.</p>
+        <a href="#strategies" class="view-more" style="margin-top: 2rem;">View more >></a>
+    </section>
+
+    <section id="strategies" class="section">
+        <div class="strategies-grid">
+            <div class="strategy-card">
+                <h3>SEO</h3>
+                <ul class="strategy-list">
+                    <li>Optimize website</li>
+                    <li>Increase organic traffic</li>
+                    <li>Improve UI/UX</li>
+                    <li>Competitive analysis</li>
+                    <li>Qualified leads</li>
+                    <li>Targeted keywords</li>
+                </ul>
+                <a href="#" class="view-more">View more >></a>
+            </div>
+
+            <div class="strategy-card">
+                <h3>Landing Page</h3>
+                <ul class="strategy-list">
+                    <li>Engaging content</li>
+                    <li>Optimized layout</li>
+                    <li>Clear message</li>
+                    <li>Personalized experience</li>
+                    <li>In-depth structure</li>
+                </ul>
+                <a href="#" class="view-more">View more >></a>
+            </div>
+
+            <div class="strategy-card">
+                <h3>SM Management</h3>
+                <ul class="strategy-list">
+                    <li>Content Creation</li>
+                    <li>Scheduling and Posting</li>
+                    <li>Audience Engagement</li>
+                    <li>Analytics and Reporting</li>
+                    <li>Strategy Development</li>
+                </ul>
+                <a href="#" class="view-more">View more >></a>
+            </div>
+        </div>
+    </section>
+
+    <section id="history" class="section">
+        <div class="timeline">
+            <div class="timeline-item">
+                <span class="timeline-year">1980</span>
+                <div class="timeline-content">
+                    <p>Ettore Sottsass coins Memphis design style</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <span class="timeline-year">2015</span>
+                <div class="timeline-content">
+                    <p>Revival of Memphis designs influences digital aesthetics</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-year">2016</span>
+                <div class="timeline-content">
+                    <p>Largest collection auction inspires modern UI trends</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-year">Present</span>
+                <div class="timeline-content">
+                    <p>Memphis-inspired elements in contemporary web design</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 Digital Marketing Hub. All rights reserved.</p>
+    </footer>
+</body>
+</html>
